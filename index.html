@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Secure Authentication Portal</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Main Page -->
+        <div id="mainPage">
+            <div class="header">
+                <h1>🔐 Secure Authentication Portal</h1>
+                <p>Generate codes instantly</p>
+            </div>
+            <div class="card">
+                <div class="button-grid">
+                    <button class="main-button" onclick="showPage('2faPage')">
+                        <span class="icon">🔐</span>
+                        <span>2FA AUTH</span>
+                    </button>
+                    <button class="main-button" onclick="showPage('mailPage')">
+                        <span class="icon">📧</span>
+                        <span>MAIL BOX</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- 2FA Page -->
+        <div id="2faPage" class="hidden">
+            <button class="back-btn" onclick="showPage('mainPage')">← Back</button>
+            
+            <div class="header">
+                <h1>🔐 2FA Authenticator</h1>
+                <p>Secure Time-based OTP Generator</p>
+            </div>
+
+            <div class="card">
+                <div class="input-group">
+                    <div class="input-label">SECRET KEY</div>
+                    <input type="text" id="secretKey" class="input-box" placeholder="Enter your secret key...">
+                </div>
+                <button class="btn" onclick="generate2FACode()">
+                    🔑 Generate Code
+                </button>
+            </div>
+
+            <div id="2faCodeDisplay" class="card hidden">
+                <div class="display-label">GENERATED CODE</div>
+                <div class="code-display" id="generatedCode">------</div>
+                <div style="text-align: center; margin-top: 15px;">
+                    <button class="copy-btn" onclick="copyCode('generatedCode')">📋 Copy Code</button>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="recent-codes">
+                    <div class="recent-header" onclick="toggleRecent()">
+                        <h3>📋 Recent Codes</h3>
+                        <button class="toggle-btn" id="toggleBtn">Show</button>
+                    </div>
+                    <div id="recentList" class="recent-list hidden">
+                        <p style="text-align: center; color: 
+;">No codes generated yet</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mail Box Page -->
+        <div id="mailPage" class="hidden">
+            <button class="back-btn" onclick="showPage('mainPage')">← Back</button>
+            
+            <div class="header">
+                <h1>📧 Get Hotmail/Outlook</h1>
+                <p>Verification Code</p>
+            </div>
+
+            <div class="card">
+                <div class="input-group">
+                    <div class="input-header">
+                        <div class="input-label">Account Details</div>
+                        <button class="clear-btn" onclick="clearMailData()">✕ Clear</button>
+                    </div>
+                    <textarea id="tokenInput" class="input-box" placeholder="Paste full token here...&#10;email|password|token" oninput="extractEmail()"></textarea>
+                </div>
+            </div>
+
+            <div id="emailDisplay" class="card hidden">
+                <div class="display-label">📧 EXTRACTED EMAIL</div>
+                <div class="display-content" id="extractedEmail"></div>
+                <button class="copy-btn" onclick="copyText('extractedEmail')">📋 Copy Email</button>
+            </div>
+
+            <div id="codeDisplay" class="card hidden">
+                <div class="display-label">🔢 VERIFICATION CODE</div>
+                <div class="code-display waiting" id="verificationCode">Waiting... ⏳</div>
+                <div style="text-align: center; margin-top: 15px;">
+                    <button class="copy-btn" onclick="copyText('verificationCode')" id="copyCodeBtn" disabled style="opacity: 0.5;">📋 Copy Code</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
